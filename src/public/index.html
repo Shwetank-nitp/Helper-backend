@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>update password</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        height: 100vh;
+        width: 100vw;
+        margin: 10px;
+        padding: 10px 5px;
+        font: mona lisa monospace roboto;
+      }
+      form {
+        margin: auto;
+        height: fit-content;
+        width: 30vw;
+        position: fixed;
+        top: 100px;
+        left: calc(100% - 15px - 60%);
+      }
+
+      button {
+        color: white;
+        padding: 0.75rem 0.4rem;
+        background: #000;
+        outline: none;
+        cursor: pointer;
+      }
+
+      .password,
+      .changePassword {
+        display: flex;
+        justify-content: space-between;
+        margin: 5px 0;
+      }
+
+      input {
+        padding: 5px 2.5px;
+        font-size: medium;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <form>
+        <p>Update password:</p>
+        <div class="password">
+          <label for="password">Enter your password</label>
+          <input
+            placeholder="password"
+            name="password"
+            id="password"
+            type="password"
+          />
+        </div>
+        <div class="changePassword">
+          <label for="conformPassword">conform your password</label>
+          <input
+            placeholder="conform password"
+            name="conformPassword"
+            id="conformPassword"
+            type="password"
+          />
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+    <script>
+      async function submitHandler() {
+        const form = document.querySelector("form");
+        const formData = new FormData(form);
+
+        // Convert FormData to an object
+        const formEntry = Object.fromEntries(formData.entries());
+        console.log(formEntry);
+
+        const token = new URLSearchParams(window.location.search).get("token");
+
+        // Ensure that token is not null or undefined
+        if (token) {
+          const res = await fetch(
+            `http://localhost:8080/api/v1/auth/updatepassword/?token=${encodeURIComponent(
+              token
+            )}`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(formEntry),
+            }
+          );
+          const data = await res.json();
+          console.log(data);
+        } else {
+          console.error("Token is missing");
+        }
+      }
+
+      document.querySelector("button").addEventListener("click", async (e) => {
+        e.preventDefault(); // Prevent the default form submission
+        await submitHandler();
+      });
+    </script>
+  </body>
+</html>

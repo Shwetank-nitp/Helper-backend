@@ -22,7 +22,7 @@ const authMiddle = asyncHandler(async (req, res, next) => {
       oauth2Client.setCredentials(tokens);
       next();
     } else {
-      res.redirect(`http://localhost:8080/api/v1/auth/accesstoken`);
+      res.redirect(process.env.GOOGLE_REDIRECT_URIS);
     }
   } catch (error) {
     next(error);

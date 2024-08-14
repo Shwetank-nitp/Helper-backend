@@ -53,6 +53,7 @@ app.get("/public/passwordChange", (req, res, next) => {
     next(error);
   }
 });
+
 app.use(API_VERSION + "auth", authRouteHandler); //done
 app.use(API_VERSION + "matchup", matchupRouteHandler); //done
 app.use(API_VERSION + "acceptor", acceptorRouteHandler); //done

@@ -18,6 +18,10 @@ try {
   process.exit(1);
 }
 
+app.get("/", (req, res) => {
+  res.send("<h1>welcome, server is running</h1>");
+});
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });

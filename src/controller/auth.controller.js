@@ -14,7 +14,7 @@ const { JsonWebTokenError } = jwt;
 const options = {
   httpOnly: true,
   secure: process.env.MODE != "DEV",
-  expires: Number(process.env.EXP_TOKEN),
+  expires: String(process.env.EXP_TOKEN),
 };
 
 //toclear the disk after uploading of file;

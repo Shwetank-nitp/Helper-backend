@@ -13,8 +13,8 @@ const { JsonWebTokenError } = jwt;
 //cookie-options
 const options = {
   httpOnly: true,
-  secure: process.env.MODE != "DEV",
-  expires: process.env.EXP_TOKEN,
+  secure: String(process.env.MODE) !== "DEV",
+  expires: new Date(Date.now() + Number(process.env.EXP_TOKEN) * 1000),
 };
 
 //toclear the disk after uploading of file;
@@ -222,6 +222,7 @@ const login = asyncHandler(async (req, res) => {
   const { password: pass, ...others } = user.toObject();
   const token = user.generateToken();
   console.log(process.env.EXP_TOKEN);
+  console.log("mode :", process.env.MODE);
   res.cookie(tokenName, token, options);
   return res.status(200).send(new SuccessResponse(true, 200, others));
 });

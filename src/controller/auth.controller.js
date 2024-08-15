@@ -221,6 +221,7 @@ const login = asyncHandler(async (req, res) => {
   }
   const { password: pass, ...others } = user.toObject();
   const token = user.generateToken();
+  console.log(process.env.EXP_TOKEN);
   res.cookie(tokenName, token, options);
   return res.status(200).send(new SuccessResponse(true, 200, others));
 });

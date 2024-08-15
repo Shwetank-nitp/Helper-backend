@@ -79,7 +79,7 @@ userSchema.methods.generateToken = function () {
     const token = jwt.sign(payload, signature, {
       expiresIn: Number(process.env.EXP_TOKEN),
     });
-    console.log(Number(process.env.EXP_TOKEN));
+
     return token;
   } catch (error) {
     throw error;

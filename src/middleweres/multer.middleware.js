@@ -4,7 +4,7 @@ import path from "path";
 const __dirname = path.dirname("");
 
 // Convert the relative path to an absolute path
-const relativePath = "src/assets";
+const relativePath = "assets";
 const absolutePath = path.resolve(__dirname, relativePath);
 
 const storageCustom = multer.diskStorage({
